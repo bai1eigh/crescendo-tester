@@ -14,7 +14,7 @@ $user_data = $login->check_login($_SESSION['crescendo_userid']);
 if($_SERVER['REQUEST_METHOD'] == "POST"){ 
 
 if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != "")
-{
+{ //die;
     if($_FILES['file']['type'] == "image/jpeg") 
     {
         $allowed_size = (1024 * 1024) * 3;
