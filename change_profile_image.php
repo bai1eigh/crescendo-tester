@@ -21,11 +21,21 @@ if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != "")
         if($_FILES['file']['size'] < $allowed_size){
 
         //everything is fine 
-        $filename ="uploads/" . $_FILES['file']['name'];
+        $folder = "uploads/" . $user_data['userid'] ."/";
+
+        //create folder
+        if(!file_exists($folder)){
+        mkdir($folder, 0777, true);
+        }
+
+        $image = new Image();
+        
+        $filename = $folder . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
 
         //changing dimensions for cover image
         $change = "profile"; 
+
         //checking for mode
         if(isset($_GET['change'])){
             
