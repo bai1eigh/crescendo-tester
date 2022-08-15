@@ -66,7 +66,7 @@ $friends = $user->get_friends($id);
         ?>
           <img id="coverImage" src="<?php echo $image?>?">
 
-            <span style="font-size:12px;">
+           
        
 
          <?php 
@@ -75,6 +75,7 @@ $friends = $user->get_friends($id);
                $image = $user_data['profile_image'];
             }
          ?>
+          <span style="font-size:12px;">
                 <img id="profile_pic" src="<?php echo $image?>"><br />
                 <a style="color: rgb(67, 67, 231); text-decoration: none;" href="change_profile_image.php?change=profile"> Change Profile
                     Image</a> |

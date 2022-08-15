@@ -12,12 +12,24 @@ class Image
 	if($original_height > $original_width){
 
 		//make width equal to the max width
-	} else {
+		$ratio = $max_width / $max_height;
 
+		$new_width = $max_width;
+		$new_height = $original_height * $ratio;
+	} else {
+		//make width equal to the max width
+		$ratio = $max_height / $original_height;
+
+		$new_height = $max_height;
+		$new_width = $original_width * $ratio;
 	}
 		}
-		imagecopyresampled($new_cropped_image, $new_image, 0, 0, $x, $y, $max_width, $max_height, $max_width, $max_height);
+
+		//resized the image
+		$new_image = imagecreatetruecolor($new_width,$new_height);
+		imagecopyresampled($new_image,$original_image,0,0,0,0, $new_width, $new_height, $original_width, $original_height);
 		
+		imagejpeg($new_image,$cropped_file_name, 90);
 	}
 
 }
