@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include("classes/autoload.php");
 
 //isset($_SESSION['crescendo_userid']);
