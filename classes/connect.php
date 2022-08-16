@@ -2,10 +2,20 @@
 
 class Database 
 {
-private $host = "localhost";
-private $username ="root";
-private $password = "";
+    //development conncection
+//private $host = "localhost";
+//private $username ="root";
+//private $password = "";
+//private $db = "crescendo_db";
+
+
+// remote database 
+private $host = "us-cdbr-east-06.cleardb.net";
+private $username ="b4032afa49e446";
+private $password = "332f487c";
 private $db = "crescendo_db";
+
+
 
 function connect(){
 $connection = mysqli_connect($this->host, $this->username, $this->password, $this->db); 
