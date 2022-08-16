@@ -1,21 +1,18 @@
 <?php 
 session_start();
-include("classes/connect.php");
-include("classes/login.php");
-include("classes/user.php");
-include("classes/post.php");
+include("classes/autoload.php");
 
 //isset($_SESSION['crescendo_userid']);
 $login = new Login();
 $user_data = $login->check_login($_SESSION['crescendo_userid']);
 //posting starts here
 if($_SERVER['REQUEST_METHOD']== "POST"){
-    
+     
     $post = new Post();
     $id = $_SESSION['crescendo_userid'];
-    $result = $post->create_post($id, $_POST);
+    $result = $post->create_post($id, $_POST, $_FILES);
 
-    if($result=="empty"){
+    if($result==""){
         header("Location: profile.php");
         die;
     }else {
@@ -37,6 +34,8 @@ $user = new User();
 $id = $_SESSION['crescendo_userid'];
 
 $friends = $user->get_friends($id);
+
+$image_class = new Image();
 ?>
 
 <!DOCTYPE html>
@@ -61,18 +60,16 @@ $friends = $user->get_friends($id);
             <?php 
             $image = "additional images/nobgimage.jpg";
             if(file_exists($user_data['cover_image'])){
-               $image = $user_data['cover_image'];
+               $image = $image_class->get_thumb_cover($user_data['cover_image']) ;
             }
         ?>
           <img id="coverImage" src="<?php echo $image?>?">
 
            
-       
-
          <?php 
             $image = "additional images/noprofile.jpg.png";
             if(file_exists($user_data['profile_image'])){
-               $image = $user_data['profile_image'];
+               $image = $image_class->get_thumb_profile($user_data['profile_image']);
             }
          ?>
 
@@ -130,10 +127,13 @@ $friends = $user->get_friends($id);
             <div style="background-color:gray;  min-height: 400px; flex: 2.5; padding: 20px; padding-right: 0px;">
 
                 <div style="background-color: white; border: black thin solid ; padding: 10px;">
-                    <form method="post">
-                        <textarea name="post" placeholder="whats on your mind?"></textarea>
-                        <button style="background-color: rgb(18, 160, 73); float: right; border: thin;"> <input
-                                type="submit" id="post_button" value="Post"></button>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <textarea name="post" placeholder="whats on your mind?"></textarea> 
+
+                         <input type="file" name="file">
+                        <button style="background-color: rgb(18, 160, 73); float: right; border: thin;">
+                         <input type="submit" id="post_button" value="Post"></button>
                         <br> <br>
                     </form>
                 </div>

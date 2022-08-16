@@ -49,22 +49,32 @@ if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != "")
         if(file_exists($user_data['cover_image'])){
             unlink($user_data['cover_image']);
         }
-         $image->crop_image($filename, $filename, 1366,488);
+         $image->resize_image($filename, $filename, 1500, 1500);
        } else {
         if(file_exists($user_data['profile_image'])){
             unlink($user_data['profile_image']);
         }
-       $image->crop_image($filename, $filename, 800,800);
+       $image->resize_image($filename, $filename, 1500, 1500);
         }
         if(file_exists($filename)){
         $userid = $user_data['userid'];
+        
         if($change == "cover"){
                 $query = "update users set cover_image = '$filename' where userid = '$userid' limit 1";
+                $_POST['is_cover_image'] = 1;
         } else {
             $query = "update users set profile_image = '$filename' where userid = '$userid' limit 1";
+            $_POST['is_profile_image'] = 1;
         }
+
         $DB = new Database();
         $DB->save($query);
+
+        //create a post 
+        $post = new Post();
+        $post->create_post($userid, $_POST, $_FILES);
+
+
 
         header(("Location: profile.php"));
         die;
@@ -119,10 +129,25 @@ if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != "")
             <!---change profile image -->
             <div style="background-color:gray;  min-height: 400px; flex: 2.5; padding: 20px; padding-right: 0px;">
                 <form method="post" enctype="multipart/form-data">
-                    <div style="background-color: white; border: black thin solid ; padding: 10px;">
+                    <div style="background-color:white; border: black thin solid ; padding: 10px;">
                         <input type="file" name="file"><br>
                         <input style = "width: 60px;"type="submit" id="post_button" value="Change">
                         <br><br>
+
+                            <div style="text-align: center;">
+                                <br><br>
+                        <?php 
+                         //checking for mode
+                    if(isset($_GET['change']) && $_GET['change'] == "cover"){
+                        
+                        $change = "cover";
+                        echo "<img src='$user_data[cover_image]' style ='max-width:500px;' >";
+                    } else {
+                        
+                        echo "<img src='$user_data[profile_image]' style ='max-width:500px;' >";
+                    }
+                        ?>
+                        </div>
                     </div>
                 </form>
 
