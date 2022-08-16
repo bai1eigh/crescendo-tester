@@ -46,6 +46,8 @@ $image_class = new Image();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crescendo | Profile</title>
     <link rel="stylesheet" href="profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -123,14 +125,18 @@ $image_class = new Image();
             </div>
 
             <!---posts area-->
-            <div style="background-color:gray;  min-height: 400px; flex: 2.5; padding: 20px; padding-right: 0px;">
+            <div style="background-color:#A44200;  min-height: 400px; flex: 2.5; padding: 20px;">
 
                 <div style="background-color: white; border: black thin solid ; padding: 10px;">
 
                     <form method="post" enctype="multipart/form-data">
                         <textarea name="post" placeholder="whats on your mind?"></textarea> 
 
-                         <input type="file" name="file">
+                         
+                         <div class="mb-3">
+  <label for="formFile" class="form-label">Default file input example</label>
+  <input class="form-control" type="file" name="file">
+</div>
                         <button style="background-color: rgb(18, 160, 73); float: right; border: thin;">
                          <input type="submit" id="post_button" value="Post"></button>
                         <br> <br>
