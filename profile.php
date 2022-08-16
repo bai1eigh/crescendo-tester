@@ -59,7 +59,7 @@ $friends = $user->get_friends($id);
     <div id="profileHeader">
         <div id="profileHeader2"> 
             <?php 
-            $image = "";
+            $image = "additional images/nobgimage.jpg";
             if(file_exists($user_data['cover_image'])){
                $image = $user_data['cover_image'];
             }
@@ -70,11 +70,12 @@ $friends = $user->get_friends($id);
        
 
          <?php 
-            $image = "";
+            $image = "additional images/noprofile.jpg.png";
             if(file_exists($user_data['profile_image'])){
                $image = $user_data['profile_image'];
             }
          ?>
+
           <span style="font-size:12px;">
                 <img id="profile_pic" src="<?php echo $image?>"><br />
                 <a style="color: rgb(67, 67, 231); text-decoration: none;" href="change_profile_image.php?change=profile"> Change Profile

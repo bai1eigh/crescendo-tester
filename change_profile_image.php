@@ -29,8 +29,8 @@ if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != "")
         }
 
         $image = new Image();
-        
-        $filename = $folder . $_FILES['file']['name'];
+
+        $filename = $folder . $image->generate_filename(15) . ".jpg";
         move_uploaded_file($_FILES['file']['tmp_name'], $filename);
 
         //changing dimensions for cover image
@@ -45,9 +45,15 @@ if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != "")
        $image = new Image();
 
        if($change == 'cover'){
+
+        if(file_exists($user_data['cover_image'])){
+            unlink($user_data['cover_image']);
+        }
          $image->crop_image($filename, $filename, 1366,488);
        } else {
-      
+        if(file_exists($user_data['profile_image'])){
+            unlink($user_data['profile_image']);
+        }
        $image->crop_image($filename, $filename, 800,800);
         }
         if(file_exists($filename)){
